@@ -1,7 +1,15 @@
 // src/components/ui/Card.jsx
 export const Card = ({ children, className = '' }) => {
   return (
-    <div className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow ${className}`}>
+    <div className={`
+      bg-white dark:bg-gray-800 
+      rounded-lg 
+      border border-gray-300 dark:border-gray-700
+      shadow-md hover:shadow-lg 
+      transition-all
+      overflow-hidden 
+      ${className}
+    `}>
       {children}
     </div>
   );

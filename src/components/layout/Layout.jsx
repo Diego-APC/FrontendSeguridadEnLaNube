@@ -2,6 +2,7 @@
 import { Outlet } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { ThemeToggle } from '../ui/ThemeToggle';
 
 export const Layout = () => {
   return (
@@ -11,6 +12,7 @@ export const Layout = () => {
         <Outlet />
       </main>
       <Footer />
+      <ThemeToggle />
     </div>
   );
 };

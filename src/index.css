@@ -1,21 +1,15 @@
 /* src/index.css */
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Estilos globales ligeros para mantener la coherencia visual */
-body {
-  @apply bg-gray-50 text-gray-900 antialiased;
-}
-
-#root {
-  @apply max-w-7xl mx-auto flex flex-col min-h-screen;
-  /* El ancho máximo es 1126px como tenías antes, pero usando Tailwind */
-}
-
-/* Si quieres conservar la tipografía personalizada o variables de color,
-   puedes añadirlas aquí, pero Tailwind ya da una buena base.
-   Por ejemplo, para mantener el esquema oscuro/claro automático: */
-@media (prefers-color-scheme: dark) {
-  body {
-    @apply bg-gray-900 text-gray-200;
+@layer base {
+  * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 200ms;
   }
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100;
 }

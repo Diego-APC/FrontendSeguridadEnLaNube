@@ -8,7 +8,7 @@ export const Navbar = () => {
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
 
   return (
-    <nav className="bg-gray-900 text-white shadow-md">
+    <nav className="bg-gray-900 dark:bg-gray-950 text-white shadow-md">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold tracking-tight">El Cimiento</Link>
         <div className="hidden md:flex space-x-6">

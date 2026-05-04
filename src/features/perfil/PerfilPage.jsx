@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useUserStore } from '../../store/userStore';
 import { Button } from '../../components/ui/Button';
+import { Card } from '../../components/ui/Card';
 
 export const PerfilPage = () => {
   const { user, isLoggedIn, logout, updateProfile } = useUserStore();
@@ -28,7 +29,7 @@ export const PerfilPage = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+    <Card className="max-w-4xl mx-auto p-6">
       <div className="flex flex-col md:flex-row gap-6">
         {/* Columna izquierda: datos del perfil */}
         <div className="flex-1">
@@ -40,7 +41,7 @@ export const PerfilPage = () => {
                   type="text"
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
-                  className="text-2xl font-bold border rounded px-2 py-1"
+                  className="text-2xl font-bold border-2 border-gray-300 dark:border-gray-600 rounded px-2 py-1 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               ) : (
                 <h2 className="text-2xl font-bold">{user.name}</h2>
@@ -59,10 +60,10 @@ export const PerfilPage = () => {
                 value={editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
                 rows="3"
-                className="w-full px-3 py-2 border rounded-md dark:bg-gray-700"
+                className="w-full px-3 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             ) : (
-              <p className="text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 p-2 rounded">
+              <p className="text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 p-2 rounded border border-gray-200 dark:border-gray-600">
                 {user.description || 'Sin descripción aún.'}
               </p>
             )}
@@ -84,16 +85,16 @@ export const PerfilPage = () => {
 
         {/* Columna derecha: configuraciones solo para admin */}
         {isAdmin && (
-          <div className="w-full md:w-64 border-l dark:border-gray-700 pl-6">
+          <div className="w-full md:w-64 border-l border-gray-200 dark:border-gray-700 pl-6">
             <h3 className="text-xl font-semibold mb-3">Configuración de la página</h3>
             <ul className="space-y-3">
               <li>
-                <button className="w-full text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+                <button className="w-full text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 border border-transparent hover:border-gray-300 dark:hover:border-gray-600">
                   ⚙️ General
                 </button>
               </li>
               <li>
-                <button className="w-full text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+                <button className="w-full text-left px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 border border-transparent hover:border-gray-300 dark:hover:border-gray-600">
                   🧾 Pedidos
                 </button>
               </li>
@@ -105,7 +106,7 @@ export const PerfilPage = () => {
                   <button
                     id="edit-products-btn"
                     disabled
-                    className="w-full px-3 py-2 bg-gray-400 text-white rounded cursor-not-allowed opacity-50"
+                    className="w-full px-3 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white cursor-not-allowed opacity-50"
                   >
                     ✏️ Editar productos
                   </button>
@@ -115,6 +116,6 @@ export const PerfilPage = () => {
           </div>
         )}
       </div>
-    </div>
+    </Card>
   );
 };

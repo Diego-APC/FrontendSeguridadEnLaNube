@@ -2,13 +2,13 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from '../components/layout/Layout';
 import { HomePage } from '../features/home/HomePage';
+import { CatalogPage } from '../features/catalog/CatalogPage';
+import { ProductPage } from '../features/product/ProductPage';
 import { PerfilPage } from '../features/perfil/PerfilPage';
 import { LoginPage } from '../features/auth/LoginPage';
 import { RegisterPage } from '../features/auth/RegisterPage';
 
-// Placeholders
-const CatalogPage = () => <div className="text-center py-10">📦 Catálogo de productos - Próximamente</div>;
-const ProductPage = () => <div className="text-center py-10">🔍 Detalle de producto - Próximamente</div>;
+// Placeholders restantes
 const CartPage = () => <div className="text-center py-10">🛒 Carrito de compras - Próximamente</div>;
 const AboutPage = () => <div className="text-center py-10">🏢 Sobre la empresa - Próximamente</div>;
 

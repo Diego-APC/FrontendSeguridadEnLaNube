@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useUserStore } from '../../store/userStore';
 import { Button } from '../../components/ui/Button';
+import { Card } from '../../components/ui/Card';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -22,7 +23,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+    <Card className="max-w-md mx-auto p-6">
       <h2 className="text-2xl font-bold text-center mb-6">Iniciar sesión</h2>
       {error && <div className="bg-red-100 text-red-700 p-3 rounded mb-4">{error}</div>}
       <form onSubmit={handleSubmit}>
@@ -32,7 +33,7 @@ export const LoginPage = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600"
+            className="w-full px-3 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
@@ -42,20 +43,20 @@ export const LoginPage = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600"
+            className="w-full px-3 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
         </div>
         <Button type="submit" variant="primary" className="w-full">Ingresar</Button>
       </form>
       <p className="text-center mt-4">
-        ¿No tienes cuenta? <Link to="/registro" className="text-blue-600 hover:underline">Regístrate</Link>
+        ¿No tienes cuenta? <Link to="/registro" className="text-blue-600 dark:text-blue-400 hover:underline">Regístrate</Link>
       </p>
-      <div className="mt-4 text-xs text-gray-500 text-center">
+      <div className="mt-4 text-xs text-gray-500 dark:text-gray-400 text-center">
         <p>Usuarios de prueba:</p>
         <p>Admin: admin@elcimiento.com / admin123</p>
         <p>Normal: carlos@example.com / carlos123</p>
       </div>
-    </div>
+    </Card>
   );
 };
