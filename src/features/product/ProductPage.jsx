@@ -10,6 +10,7 @@ export const ProductPage = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [showNotification, setShowNotification] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
   const [relatedProducts, setRelatedProducts] = useState([]);
 
@@ -17,7 +18,6 @@ export const ProductPage = () => {
     const found = products.find(p => p.id === parseInt(id));
     if (found) {
       setProduct(found);
-      // Productos relacionados: misma categoría, excluyendo el actual, máximo 4
       const related = products
         .filter(p => p.category === found.category && p.id !== found.id)
         .slice(0, 4);
@@ -28,12 +28,9 @@ export const ProductPage = () => {
   }, [id]);
 
   const handleAddToCart = () => {
-    // Agregar al carrito con cantidad seleccionada
     for (let i = 0; i < quantity; i++) {
       addItem(product);
     }
-    // Opcional: mostrar notificación
-    alert(`Agregado ${quantity} x ${product.name} al carrito`);
   };
 
   if (!product) {
@@ -89,14 +86,14 @@ export const ProductPage = () => {
               <div>
                 <label htmlFor="quantity" className="block text-sm font-medium mb-1">Cantidad:</label>
             <input
-  type="number"
-  id="quantity"
-  min="1"
-  max={product.stock}
-  value={quantity}
-  onChange={(e) => setQuantity(Math.min(product.stock, Math.max(1, parseInt(e.target.value) || 1)))}
-  className="w-24 px-3 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-/>
+              type="number"
+              id="quantity"
+              min="1"
+              max={product.stock}
+              value={quantity}
+              onChange={(e) => setQuantity(Math.min(product.stock, Math.max(1, parseInt(e.target.value) || 1)))}
+              className="w-24 px-3 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
               </div>
               <Button onClick={handleAddToCart} variant="primary" className="mt-6">
                 Agregar al carrito

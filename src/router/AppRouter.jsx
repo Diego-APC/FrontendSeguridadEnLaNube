@@ -4,13 +4,11 @@ import { Layout } from '../components/layout/Layout';
 import { HomePage } from '../features/home/HomePage';
 import { CatalogPage } from '../features/catalog/CatalogPage';
 import { ProductPage } from '../features/product/ProductPage';
+import { CartPage } from '../features/cart/CartPage';
+import { AboutPage } from '../features/about/AboutPage';
 import { PerfilPage } from '../features/perfil/PerfilPage';
 import { LoginPage } from '../features/auth/LoginPage';
 import { RegisterPage } from '../features/auth/RegisterPage';
-
-// Placeholders restantes
-const CartPage = () => <div className="text-center py-10">🛒 Carrito de compras - Próximamente</div>;
-const AboutPage = () => <div className="text-center py-10">🏢 Sobre la empresa - Próximamente</div>;
 
 export const router = createBrowserRouter([
   {
