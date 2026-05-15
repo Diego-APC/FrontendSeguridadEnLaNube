@@ -1,4 +1,3 @@
-// src/features/auth/RegisterPage.jsx
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useUserStore } from '../../store/userStore';
@@ -13,9 +12,9 @@ export const RegisterPage = () => {
   const register = useUserStore((state) => state.register);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = register(name, email, password);
+    const success = await register(name, email, password);
     if (success) {
       navigate('/perfil');
     } else {

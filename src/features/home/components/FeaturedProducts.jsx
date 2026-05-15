@@ -1,10 +1,28 @@
 // src/features/home/components/FeaturedProducts.jsx
-import { products } from '../../../data/products';
+import { useEffect } from 'react';
+import { useProductStore } from '../../../store/productStore';
 import { ProductCard } from '../../catalog/components/ProductCard';
 
 export const FeaturedProducts = () => {
-  // Tomamos los primeros 3 productos como destacados (puedes cambiar el criterio)
+  const { products, fetchProducts, loading } = useProductStore();
+
+  useEffect(() => {
+    if (products.length === 0 && !loading) {
+      fetchProducts();
+    }
+  }, []);
+
+  // Tomar los primeros 3 productos como destacados (puedes cambiar el criterio)
   const featured = products.slice(0, 3);
+
+  if (loading && products.length === 0) {
+    return (
+      <section>
+        <h2 className="text-3xl font-bold text-center mb-8">Productos Destacados</h2>
+        <div className="text-center text-gray-500">Cargando productos...</div>
+      </section>
+    );
+  }
 
   return (
     <section>

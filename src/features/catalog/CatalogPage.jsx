@@ -1,29 +1,32 @@
-// src/features/catalog/CatalogPage.jsx
-import { useState, useMemo } from 'react';
-import { products, getCategories } from '../../data/products';
+import { useState, useEffect } from 'react';
+import { useProductStore } from '../../store/productStore';
 import { ProductCard } from './components/ProductCard';
 import { CategoryFilter } from './components/CategoryFilter';
 
 export const CatalogPage = () => {
+  const { products, fetchProducts, categories, fetchCategories, loading } = useProductStore();
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const categories = getCategories();
 
-  const filteredProducts = useMemo(() => {
-    let filtered = products;
-    if (selectedCategory) {
-      filtered = filtered.filter(p => p.category === selectedCategory);
-    }
+  useEffect(() => {
+    fetchProducts();
+    fetchCategories();
+  }, []);
+
+  const filteredProducts = products.filter(product => {
+    if (selectedCategory && product.category !== selectedCategory) return false;
     if (searchTerm.trim() !== '') {
       const term = searchTerm.toLowerCase();
-      filtered = filtered.filter(p => 
-        p.name.toLowerCase().includes(term) || 
-        p.description.toLowerCase().includes(term) ||
-        p.category.toLowerCase().includes(term)
-      );
+      return product.name.toLowerCase().includes(term) || 
+             product.description.toLowerCase().includes(term) ||
+             product.category.toLowerCase().includes(term);
     }
-    return filtered;
-  }, [selectedCategory, searchTerm]);
+    return true;
+  });
+
+  if (loading && products.length === 0) {
+    return <div className="text-center py-10">Cargando productos...</div>;
+  }
 
   return (
     <div>
@@ -31,12 +34,12 @@ export const CatalogPage = () => {
       
       <div className="mb-4">
         <input
-  type="text"
-  placeholder="Buscar productos..."
-  value={searchTerm}
-  onChange={(e) => setSearchTerm(e.target.value)}
-  className="w-full md:w-96 px-4 py-2 border-2 border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-/>
+          type="text"
+          placeholder="Buscar productos..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full md:w-96 px-4 py-2 border-2 border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
       </div>
 
       <CategoryFilter 
@@ -51,7 +54,7 @@ export const CatalogPage = () => {
         ))}
       </div>
 
-      {filteredProducts.length === 0 && (
+      {filteredProducts.length === 0 && !loading && (
         <div className="text-center py-10 text-gray-500">
           No se encontraron productos. Intenta con otra búsqueda o categoría.
         </div>

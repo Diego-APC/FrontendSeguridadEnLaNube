@@ -1,4 +1,3 @@
-// src/router/AppRouter.jsx
 import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from '../components/layout/Layout';
 import { HomePage } from '../features/home/HomePage';
@@ -9,6 +8,7 @@ import { AboutPage } from '../features/about/AboutPage';
 import { PerfilPage } from '../features/perfil/PerfilPage';
 import { LoginPage } from '../features/auth/LoginPage';
 import { RegisterPage } from '../features/auth/RegisterPage';
+import { AdminProductsPage } from '../features/admin/AdminProductsPage';
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +22,9 @@ export const router = createBrowserRouter([
       { path: 'nosotros', element: <AboutPage /> },
       { path: 'perfil', element: <PerfilPage /> },
       { path: 'login', element: <LoginPage /> },
-      { path: 'registro', element: <RegisterPage /> }
+      { path: 'registro', element: <RegisterPage /> },
+      // Ruta oculta para administración de productos (solo admin, pero no hay validación fuerte)
+      { path: 'admin/dashboard-productos', element: <AdminProductsPage /> }
     ]
   }
 ]);
