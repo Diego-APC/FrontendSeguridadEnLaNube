@@ -49,9 +49,10 @@ export const usersAPI = {
 
 // Endpoints de productos
 export const productsAPI = {
-  getAll: (filters = {}) => {
-    const params = new URLSearchParams(filters).toString();
-    return request(`/products${params ? `?${params}` : ''}`);
+  getAll: async (filters = {}) => {
+  const params = new URLSearchParams(filters).toString();
+  const res = await fetch(`${API_BASE_URL}/products${params ? '?' + params : ''}`);
+  return res.json();
   },
   getCategories: () => request('/products/categories'),
   getById: (id) => request(`/products/${id}`),

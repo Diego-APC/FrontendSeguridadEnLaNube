@@ -4,25 +4,21 @@ import { ProductCard } from './components/ProductCard';
 import { CategoryFilter } from './components/CategoryFilter';
 
 export const CatalogPage = () => {
-  const { products, fetchProducts, categories, fetchCategories, loading } = useProductStore();
+  const { products, fetchProducts, categories, fetchCategories, loading, error } = useProductStore();
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetchProducts();
     fetchCategories();
   }, []);
 
-  const filteredProducts = products.filter(product => {
-    if (selectedCategory && product.category !== selectedCategory) return false;
-    if (searchTerm.trim() !== '') {
-      const term = searchTerm.toLowerCase();
-      return product.name.toLowerCase().includes(term) || 
-             product.description.toLowerCase().includes(term) ||
-             product.category.toLowerCase().includes(term);
-    }
-    return true;
-  });
+  // Cada vez que cambia search o category, llama al backend
+  useEffect(() => {
+    const filters = {};
+    if (selectedCategory) filters.category = selectedCategory;
+    if (searchTerm.trim() !== '') filters.search = searchTerm.trim();
+    fetchProducts(filters);
+  }, [searchTerm, selectedCategory]);
 
   if (loading && products.length === 0) {
     return <div className="text-center py-10">Cargando productos...</div>;
@@ -31,7 +27,13 @@ export const CatalogPage = () => {
   return (
     <div>
       <h1 className="text-3xl font-bold mb-6">Catálogo de productos</h1>
-      
+
+      {error && (
+        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-800 rounded font-mono text-sm">
+          ⚠️ Error del servidor: {error}
+        </div>
+        )}
+
       <div className="mb-4">
         <input
           type="text"
@@ -42,19 +44,19 @@ export const CatalogPage = () => {
         />
       </div>
 
-      <CategoryFilter 
+      <CategoryFilter
         categories={categories}
         selectedCategory={selectedCategory}
         onSelect={setSelectedCategory}
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProducts.map(product => (
+        {products.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
 
-      {filteredProducts.length === 0 && !loading && (
+      {products.length === 0 && !loading && (
         <div className="text-center py-10 text-gray-500">
           No se encontraron productos. Intenta con otra búsqueda o categoría.
         </div>

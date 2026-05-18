@@ -12,8 +12,14 @@ export const useProductStore = create((set, get) => ({
     set({ loading: true, error: null });
     try {
       const data = await productsAPI.getAll(filters);
-      set({ products: data, loading: false });
-      return data;
+      // Si el backend devuelve error (objeto con .error), no sobreescribir products
+      if (Array.isArray(data)) {
+        set({ products: data, loading: false });
+        return data;
+      } else {
+        set({ error: data.error || 'Error desconocido', loading: false });
+        return [];
+      }
     } catch (error) {
       set({ error: error.message, loading: false });
       return [];
