@@ -60,3 +60,23 @@ export const productsAPI = {
   update: (id, productData) => request(`/products/${id}`, 'PUT', productData, true),
   delete: (id) => request(`/products/${id}`, 'DELETE', null, true),
 };
+
+export const uploadAPI = {
+  uploadProductImage: async (file) => {
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('image', file);
+
+    const res = await fetch(`${API_BASE_URL}/products/upload-image`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}` },
+      body: formData  // sin Content-Type, fetch lo pone solo con boundary
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Error al subir imagen');
+    }
+    return res.json(); // { url: "http://..." }
+  }
+};

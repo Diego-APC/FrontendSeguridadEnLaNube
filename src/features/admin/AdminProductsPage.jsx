@@ -4,6 +4,7 @@ import { useUserStore } from '../../store/userStore';
 import { useProductStore } from '../../store/productStore';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
+import { uploadAPI } from '../../services/api';
 
 export const AdminProductsPage = () => {
   const { user, isLoggedIn } = useUserStore();
@@ -38,16 +39,16 @@ export const AdminProductsPage = () => {
     setPreviewImage(product.image);
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const dataUrl = reader.result;
-      setEditForm({ ...editForm, image: dataUrl });
-      setPreviewImage(dataUrl);
-    };
-    reader.readAsDataURL(file);
+    try {
+      const { url } = await uploadAPI.uploadProductImage(file);
+      setEditForm(prev => ({ ...prev, image: url }));
+      setPreviewImage(url);
+    } catch (error) {
+      alert('Error al subir imagen: ' + error.message);
+    }
   };
 
   const saveEdit = async (id) => {
