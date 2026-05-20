@@ -1,4 +1,6 @@
 // src/components/ui/Card.jsx
+import { getImageUrl } from '../../utils/imageUrl';
+
 export const Card = ({ children, className = '' }) => {
   return (
     <div className={`
@@ -16,7 +18,7 @@ export const Card = ({ children, className = '' }) => {
 };
 
 Card.Image = ({ src, alt }) => (
-  <img src={src} alt={alt} className="w-full h-48 object-cover" />
+  <img src={getImageUrl(src)} alt={alt} className="w-full h-48 object-cover" />
 );
 
 Card.Content = ({ children }) => (

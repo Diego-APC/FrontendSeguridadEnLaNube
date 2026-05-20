@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCartStore } from '../../store/cartStore';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
+import { getImageUrl } from '../../utils/imageUrl';
 
 export const CartPage = () => {
   const { items, updateQuantity, removeItem, clearCart, totalPrice, totalItems } = useCartStore();
@@ -48,7 +49,7 @@ export const CartPage = () => {
           {items.map((item) => (
             <Card key={item.id} className="p-4 flex flex-col sm:flex-row gap-4 items-center">
               <img 
-                src={item.image} 
+                src={getImageUrl(item.image)} 
                 alt={item.name} 
                 className="w-24 h-24 object-cover rounded"
               />

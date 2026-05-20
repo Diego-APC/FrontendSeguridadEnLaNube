@@ -5,6 +5,7 @@ import { useProductStore } from '../../store/productStore';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { uploadAPI } from '../../services/api';
+import { getImageUrl } from '../../utils/imageUrl';
 
 export const AdminProductsPage = () => {
   const { user, isLoggedIn } = useUserStore();
@@ -88,9 +89,6 @@ export const AdminProductsPage = () => {
         </Button>
       </div>
 
-      <div className="mb-4 p-2 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200 text-sm rounded border border-red-300">
-        ⚠️ <strong>Laboratorio XSS</strong>: Puedes subir imágenes, incluyendo archivos SVG que ejecuten JavaScript. ¡Úsalo para practicar!
-      </div>
 
       <div className="grid grid-cols-1 gap-4">
         {products.map(product => (
@@ -128,7 +126,7 @@ export const AdminProductsPage = () => {
                   />
                   {previewImage && (
                     <div className="mt-2">
-                      <img src={previewImage} alt="Vista previa" className="w-32 h-32 object-cover rounded" />
+                      <img src={getImageUrl(previewImage)} alt="Vista previa" className="w-32 h-32 object-cover rounded" />
                     </div>
                   )}
                 </div>
@@ -145,7 +143,7 @@ export const AdminProductsPage = () => {
                   <p className="text-sm">{product.description}</p>
                 </div>
                 <div className="flex items-center gap-4">
-                  <img src={product.image} alt={product.name} className="w-16 h-16 object-cover rounded" />
+                  <img src={getImageUrl(product.image)} alt={product.name} className="w-16 h-16 object-cover rounded" />
                   <Button onClick={() => startEdit(product)} variant="secondary">
                     Editar
                   </Button>

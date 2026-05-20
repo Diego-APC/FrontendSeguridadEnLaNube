@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useProductStore } from '../../store/productStore';
 import { useCartStore } from '../../store/cartStore';
 import { Button } from '../../components/ui/Button';
+import { getImageUrl } from '../../utils/imageUrl';
 
 export const ProductPage = () => {
   const { id } = useParams();
@@ -59,7 +60,7 @@ export const ProductPage = () => {
       <div className="flex flex-col md:flex-row gap-8">
         <div className="md:w-1/2">
           <img 
-            src={product.image} 
+            src={getImageUrl(product.image)}
             alt={product.name}
             className="w-full rounded-lg shadow-md object-cover"
           />
@@ -114,7 +115,7 @@ export const ProductPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {relatedProducts.map(rel => (
               <Link to={`/producto/${rel.id}`} key={rel.id} className="border rounded-lg p-3 hover:shadow-lg transition">
-                <img src={rel.image} alt={rel.name} className="w-full h-32 object-cover rounded" />
+                <img src={getImageUrl(rel.image)} alt={rel.name} className="w-full h-32 object-cover rounded" />
                 <h3 className="font-semibold mt-2">{rel.name}</h3>
                 <p className="text-blue-600">${rel.price.toLocaleString()}</p>
               </Link>

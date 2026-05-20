@@ -40,10 +40,6 @@ export const PerfilPage = () => {
 
   return (
     <Card className="max-w-4xl mx-auto p-6">
-      {/* Aviso del laboratorio */}
-      <div className="mb-4 p-2 bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-200 text-sm rounded border border-yellow-300">
-        ⚠️ <strong>Laboratorio XSS</strong>: La descripción del perfil es vulnerable. Inyecta código para habilitar el botón de administración.
-      </div>
 
       <div className="flex flex-col md:flex-row gap-6">
         {/* Columna izquierda */}
