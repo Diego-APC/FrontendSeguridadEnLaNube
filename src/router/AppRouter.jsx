@@ -9,6 +9,7 @@ import { PerfilPage } from '../features/perfil/PerfilPage';
 import { LoginPage } from '../features/auth/LoginPage';
 import { RegisterPage } from '../features/auth/RegisterPage';
 import { AdminProductsPage } from '../features/admin/AdminProductsPage';
+import { ChatPage } from '../features/chat/ChatPage';
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +25,8 @@ export const router = createBrowserRouter([
       { path: 'login', element: <LoginPage /> },
       { path: 'registro', element: <RegisterPage /> },
       // Ruta oculta para administración de productos (solo admin, pero no hay validación fuerte)
-      { path: 'admin/dashboard-productos', element: <AdminProductsPage /> }
+      { path: 'admin/dashboard-productos', element: <AdminProductsPage /> },
+      { path: 'admin/chat', element: <ChatPage /> }
     ]
   }
 ]);
