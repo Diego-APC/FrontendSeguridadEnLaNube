@@ -51,11 +51,6 @@ export const LoginPage = () => {
       <p className="text-center mt-4">
         ¿No tienes cuenta? <Link to="/registro" className="text-blue-600 dark:text-blue-400 hover:underline">Regístrate</Link>
       </p>
-      <div className="mt-4 text-xs text-gray-500 dark:text-gray-400 text-center">
-        <p>Usuarios de prueba:</p>
-        <p>Admin: admin@elcimiento.com / admin123</p>
-        <p>Normal: carlos@example.com / carlos123</p>
-      </div>
     </Card>
   );
 };
