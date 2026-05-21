@@ -10,6 +10,7 @@ import { LoginPage } from '../features/auth/LoginPage';
 import { RegisterPage } from '../features/auth/RegisterPage';
 import { AdminProductsPage } from '../features/admin/AdminProductsPage';
 import { ChatPage } from '../features/chat/ChatPage';
+import { BrickWallPage } from '../features/brickwall/BrickWallPage';
 
 export const router = createBrowserRouter([
   {
@@ -24,9 +25,11 @@ export const router = createBrowserRouter([
       { path: 'perfil', element: <PerfilPage /> },
       { path: 'login', element: <LoginPage /> },
       { path: 'registro', element: <RegisterPage /> },
+      { path: 'brickwall', element: <BrickWallPage /> },
       // Ruta oculta para administración de productos (solo admin, pero no hay validación fuerte)
       { path: 'admin/dashboard-productos', element: <AdminProductsPage /> },
       { path: 'admin/chat', element: <ChatPage /> }
     ]
   }
 ]);
+
