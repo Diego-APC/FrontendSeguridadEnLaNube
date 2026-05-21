@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DiegoPinzon from '../../assets/DiegoPinzon.jpeg';
+import SantiagoGutierrez from '../../assets/SantigoGutierrez.jpeg';
 
 export const BrickWallPage = () => {
   const wallRef = useRef(null);
@@ -49,6 +51,18 @@ export const BrickWallPage = () => {
     return () => window.removeEventListener('resize', buildWall);
   }, []);
 
+  const cardStyle = {
+    textAlign: 'center', color: '#fff',
+    display: 'flex', flexDirection: 'column', alignItems: 'center',
+    width: 'clamp(140px, 20vw, 200px)'
+  };
+
+  const photoStyle = {
+    width: 110, height: 110, borderRadius: '50%',
+    objectFit: 'cover', border: '3px solid #00ff88',
+    boxShadow: '0 0 16px #00ff8866', marginBottom: 12
+  };
+
   return (
     <>
       <style>{`
@@ -66,24 +80,76 @@ export const BrickWallPage = () => {
         position: 'fixed', top: 0, left: 0,
         overflow: 'hidden', fontFamily: 'monospace'
       }}>
-        {/* Texto secreto detrás */}
+        {/* Contenido detrás del muro */}
         <div style={{
-          position: 'absolute', top: '50%', left: '50%',
-          transform: 'translate(-50%, -50%)',
-          color: '#00ff88', textAlign: 'center',
-          lineHeight: 2, zIndex: 0,
-          textShadow: '0 0 10px #00ff88',
-          fontSize: 'clamp(12px, 2vw, 18px)'
+          position: 'absolute', top: 0, left: 0,
+          width: '100%', height: '100%',
+          display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center',
+          zIndex: 0, gap: 20
         }}>
-          <div style={{ color: '#aaa', fontSize: '0.8em' }}>acceso SSH al laboratorio</div>
-          <div>ssh estudiante</div>
-          <div style={{ color: '#aaa', fontSize: '0.8em', marginTop: 8 }}>contraseña</div>
-          <div>laboratorioSeguridad2026</div>
+          {/* Universidad */}
+          <div style={{ textAlign: 'center' }}>
+            <div style={{
+              color: '#00ff88', fontSize: 'clamp(16px, 2.5vw, 26px)',
+              fontWeight: 'bold', textShadow: '0 0 12px #00ff88', letterSpacing: 2
+            }}>
+              Universidad de Cundinamarca
+            </div>
+            <div style={{ color: '#aaa', fontSize: 'clamp(11px, 1.4vw, 15px)', marginTop: 4 }}>
+              Sede Chía
+            </div>
+          </div>
+
+          {/* Tres columnas */}
+          <div style={{
+            display: 'flex', alignItems: 'center',
+            justifyContent: 'center', gap: 'clamp(16px, 5vw, 60px)',
+            width: '100%', padding: '0 24px'
+          }}>
+            {/* Diego — izquierda */}
+            <div style={cardStyle}>
+              <img src={DiegoPinzon} alt="Diego" style={photoStyle} />
+              <div style={{ fontWeight: 'bold', fontSize: 'clamp(12px, 1.5vw, 15px)' }}>
+                Diego Alexander<br />Pinzón Camargo
+              </div>
+              <div style={{ color: '#00ff88', fontSize: 'clamp(10px, 1.2vw, 13px)', marginTop: 6 }}>
+                Desarrollo Frontend
+              </div>
+              <div style={{ color: '#aaa', fontSize: 'clamp(9px, 1vw, 12px)', marginTop: 3 }}>
+                Ingeniero de Sistemas<br />y Computación
+              </div>
+            </div>
+
+            {/* SSH — centro */}
+            <div style={{ textAlign: 'center', lineHeight: 2, minWidth: 180 }}>
+              <div style={{ color: '#aaa', fontSize: '0.75em' }}>acceso SSH al laboratorio</div>
+              <div style={{ color: '#00ff88', fontSize: 'clamp(12px, 1.5vw, 16px)' }}>ssh estudiante</div>
+              <div style={{ color: '#aaa', fontSize: '0.75em', marginTop: 8 }}>contraseña</div>
+              <div style={{ color: '#00ff88', fontSize: 'clamp(12px, 1.5vw, 16px)' }}>laboratorioSeguridad2026</div>
+            </div>
+
+            {/* Santiago — derecha */}
+            <div style={cardStyle}>
+              <img src={SantiagoGutierrez} alt="Santiago" style={photoStyle} />
+              <div style={{ fontWeight: 'bold', fontSize: 'clamp(12px, 1.5vw, 15px)' }}>
+                Julián Santiago<br />Gutiérrez Rodríguez
+              </div>
+              <div style={{ color: '#00ff88', fontSize: 'clamp(10px, 1.2vw, 13px)', marginTop: 6 }}>
+                Desarrollo Backend
+              </div>
+              <div style={{ color: '#aaa', fontSize: 'clamp(9px, 1vw, 12px)', marginTop: 3 }}>
+                Ingeniero de Sistemas<br />y Computación
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Muro de ladrillos */}
-        <div ref={wallRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }} />
-    
+        <div ref={wallRef} style={{
+          position: 'absolute', top: 0, left: 0,
+          width: '100%', height: '100%', zIndex: 1
+        }} />
 
         {/* Hint */}
         <div style={{
