@@ -4,20 +4,39 @@ import { useUserStore } from '../../store/userStore';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 
+
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const login = useUserStore((state) => state.login);
   const navigate = useNavigate();
+  const [attempts, setAttempts] = useState(0);
+  const [blockedUntil, setBlockedUntil] = useState(null);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const success = await login(email, password);
+  e.preventDefault();
+
+  // Verificar bloqueo
+  if (blockedUntil && Date.now() < blockedUntil) {
+    const remaining = Math.ceil((blockedUntil - Date.now()) / 1000);
+    setError(`Demasiados intentos. Espera ${remaining} segundos.`);
+    return;
+  }
+
+  const success = await login(email, password);
     if (success) {
       navigate('/perfil');
     } else {
-      setError('Credenciales inválidas. Usa admin@elcimiento.com / admin123 o carlos@example.com / carlos123');
+      const newAttempts = attempts + 1;
+      setAttempts(newAttempts);
+      if (newAttempts >= 10) {
+        setBlockedUntil(Date.now() + 5 * 60 * 1000);
+        setAttempts(0);
+        setError('Demasiados intentos fallidos. Espera 5 minutos.');
+      } else {
+        setError(`Credenciales inválidas. Intentos ${newAttempts}/10`);
+      }
     }
   };
 
